@@ -5,6 +5,7 @@ import { Material, TorusGeometry } from 'three'
 import * as dat from "dat.gui"
 
 
+
 //debug
 const gui = new dat.GUI();
 
@@ -35,6 +36,8 @@ const envMapTexture = cubeTextureLoader.load(
         `/textures/environmentMaps/4/nz.png`,]
 )
 
+const sceneMat = textureLoader.load('/textures/environmentMaps/4/py.png')
+
 gradientTexture.generateMipmaps = false
 gradientTexture.minFilter = THREE.NearestFilter
 gradientTexture.magFilter = THREE.NearestFilter
@@ -47,6 +50,9 @@ const canvas = document.querySelector('canvas.webgl')
 
 // Scene
 const scene = new THREE.Scene()
+// scene.background = new THREE.Color("#006978")
+scene.background = sceneMat
+ 
 
 /**
  * Sizes
@@ -79,6 +85,8 @@ mat.roughness = 0
 mat.envMap = envMapTexture
 mat.color = new THREE.Color("#006978")
 
+
+
 gui.add(mat, "metalness", 0, 1, 0.0001)
 gui.add(mat, "roughness", 0, 1, 0.0001)
 
@@ -94,7 +102,7 @@ pointLight.position.x = 4
 
 const sphere = new THREE.Mesh(
     new THREE.SphereGeometry(
-        0.5, 64, 64
+        1, 64, 64
     ), mat
 )
 sphere.geometry.setAttribute(
